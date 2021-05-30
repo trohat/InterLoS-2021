@@ -1,6 +1,6 @@
-# INTERLOS 2021
+# InterLoS 2021
 
-Codes from [INTERLOS event](https://interlos.fi.muni.cz/). 
+Codes from [InterLoS event](https://interlos.fi.muni.cz/). 
 
 #### Useful functionalities: 
 
