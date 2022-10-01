@@ -1,29 +1,50 @@
-console.log("P5 - ");
+console.log("P5 - KoLOSálna oslava");
 
-const splitLines = data => data.split(String.fromCharCode(10));
+const splitLines = data => data.split(", ");
 
-const prepare = data => data;
+const prepare = data => data.map(x => +x).sort((a,b) => a-b);
 
-const task = data => {
-    
+let count = 0;
+
+const task = ( data1, data2) => {
+    const addNext = (i, from, fromSorted, to, toSorted) => {
+        if (from.length === 0) {
+            let s = "";
+            for (const t of fromSorted) s += chr(t);
+            console.log(s);
+            count++;
+            return;
+        }
+        for (const t of new Set(from)) {
+            let newTable = t + i;
+            if (to.includes(newTable)) {
+                fromI = from.indexOf(t);
+                toI = to.indexOf(newTable);
+                let nextFromSorted = [...fromSorted];
+                nextFromSorted.push(t);
+                let nextToSorted = [...toSorted];
+                nextToSorted.push(newTable);
+                addNext(i+1, from.slice(0,fromI).concat(from.slice(fromI+1)), nextFromSorted, to.slice(0,toI).concat(to.slice(toI+1)), nextToSorted);
+            }
+        }
+    }
+
+    addNext(1, data1, [], data2, []);
 };
 
-let testdata = ``;
-
 inputdata = prepare(splitLines(inputdata));
+inputdata2 = prepare(splitLines(inputdata2));
 
 console.log(inputdata);
+console.log(inputdata2);
 
-testdata = prepare(splitLines(testdata));
-
-console.log(testdata);
 
 console.log("");
 
-//doEqualTest(task(testdata), 7);
-
-//console.time("Task");
-//console.log("Task: " + task(inputdata));
-//console.timeEnd("Task");
-
-console.log("");
+console.time("test");
+task([68,72,71], [74,73,70]);
+console.timeEnd("test");
+console.time("task");
+task(inputdata, inputdata2);
+console.timeEnd("task");
+console.log(count);
